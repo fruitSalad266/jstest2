@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Search Reddit</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <script>
+        async function newQuery() {
+            const query = document.getElementById("searchInput").value;
+            if(!query) {
+                alert("Query cannot be blank");
+                return;
+            }
+
+            try {
+                const url = "http://localhost:8000/q?query=" + encodeURIComponent(query);
+                const response = await fetch(url);
+                const data = await response.json();
+
+                document.getElementById("title").textContent = data.title;
+                document.getElementById("sr").textContent = data.sr;
+                document.getElementById("link").href = data.link;
+            } catch(error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>WARNING! THIS SITE IS DEPRECATED. FOR AN UPDATED VERSION VISIT</h1>
+        <h1><a href="https://redditquery.vercel.app/">THIS LINK</a></h1>
+        <hr>
+        <h1>Search Reddit For Keyword</h1>
+        <h3>Created with <a href="https://pullpush.io" target="_blank">pullpush.io</a> API</h3>
+        <input type = "text" id="searchInput" placeholder="Enter query"> 
+        <button id="searchButton" onClick="newQuery()">Search</button>
+        
+        <section class = "resultSection">
+            <p id = "sr">Subreddit</p>
+            <h4 id = "title">This will display the post </h4>
+            <a id = "link" target ="_blank">Link</a>
+        </section>
+
+        <section class = "infoSection">
+            <p>This tool will return the top 100 most recent <a href="https://reddit.com" target="_blank">Reddit</a> submissions containing your term. </p>
+        </section>
+    </div>
+</body>
