@@ -52,4 +52,4 @@ def fetchQ2(query: str):
     return(parsedData)
 
 if __name__ == "__main__":
-    uvicorn.run("server:app", port=8000, reload=True)
+    uvicorn.run("server:app", port=process.env.PORT, reload=True)
