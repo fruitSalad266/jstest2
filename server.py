@@ -5,7 +5,48 @@ import requests
 import json
 # import random
 
-app = FastAPI()
+description = """
+JSTEST2 API helps me do awesome stuff (fetch pushpull api). 🚀
+It also helps you because you can do the awesome stuff too. ️‍🔥
+
+## Items
+
+You can **read [reddit] submissions**.
+
+## Users
+
+You will be able to:
+
+* **Be successful (probably)**.
+* **Preview 1 (one) Reddit post**.
+* **Preview multiple (up to one hundred (100)) Reddit posts**.
+"""
+
+tags_metadata = [
+    {
+        "name": "Query: single",
+        "description": "Fetches a single reddit submission",
+    },
+    {
+        "name": "Query: multiple",
+        "description": "Fetches multiple reddit submissions",
+    },
+]
+
+app = FastAPI(
+    title="JSTEST2",
+    description=description,
+    version="0.0.3",
+    contact={
+        "name": "Matt N",
+        "email": "mattcng9 at uw",
+    },
+    license_info={
+        "name": "Apache 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+    },
+    openapi_tags=tags_metadata
+    )
 
 app.add_middleware(
     CORSMiddleware,
@@ -15,11 +56,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/")
 def root():
     return({"message": "success"})
 
-@app.get("/q")
+@app.get("/q", tags=["Query: single"])
 def fetchQ(query: str):
     raw = requests.get('https://api.pullpush.io/reddit/search/submission/?q=' + query).text
     mapData = json.loads(raw)["data"]
@@ -33,7 +75,7 @@ def fetchQ(query: str):
     print("QUERY:", query)
     return({"title": titleRaw, "sr": subreddit, "link": link})
 
-@app.get("/q2")
+@app.get("/q2", tags=["Query: multiple"])
 def fetchQ2(query: str):
     raw = requests.get('https://api.pullpush.io/reddit/search/submission/?q=' + query).text
     mapData = json.loads(raw)["data"]
