@@ -51,5 +51,6 @@ def fetchQ2(query: str):
 
     return(parsedData)
 
-if __name__ == "__main__":
-    uvicorn.run("server:app", port=8000, reload=True)
+#Uncomment if running locally
+# if __name__ == "__main__":
+#     uvicorn.run("server:app", port=8000, reload=True)
