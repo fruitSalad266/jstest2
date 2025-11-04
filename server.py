@@ -87,8 +87,10 @@ def fetchQ2(query: str):
         sr = "r/" + data["subreddit"] 
         url = 'https://redd.it/' + data["id"]
         nsfw = data["thumbnail"] == "nsfw"
+        ups = data["ups"]
+        created = data["created_utc"]
         
-        parsedData[i] = ({"title": title, "sr":  sr, "link": url, "nsfw": nsfw})
+        parsedData[i] = ({"title": title, "sr":  sr, "link": url, "nsfw": nsfw, "ups": ups, "created": created})
 
     return(parsedData)
 
