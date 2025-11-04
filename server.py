@@ -85,7 +85,7 @@ def fetchQ2(query: str):
     for i, data in enumerate(mapData):
         title = data["title"]
         sr = "r/" + data["subreddit"] 
-        url = 'https://reddit.com/' + data["id"]
+        url = 'https://redd.it/' + data["id"]
         nsfw = data["thumbnail"] == "nsfw"
         
         parsedData[i] = ({"title": title, "sr":  sr, "link": url, "nsfw": nsfw})
